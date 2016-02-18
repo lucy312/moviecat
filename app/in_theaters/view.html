@@ -1,28 +1,44 @@
 <h1 class="page-header">{{title}}</h1>
 <h2 ng-if="message">{{message}}</h2>
 <div class="list-group">
-
     <a href="#" class="list-group-item" ng-repeat="item in subjects">
-    		 <span class="badge">{{item.rating.average}}</span>
+        <span class="badge">{{item.rating.average}}</span>
         <div class="media">
             <div class="media-left">
-                    <img class="media-object" ng-src="{{item.images.small}}" alt="{{item.title}}">
+                <img class="media-object" ng-src="{{item.images.small}}" alt="{{item.title}}">
             </div>
             <div class="media-body">
                 <h2 class="media-heading">{{item.title}}</h2>
                 <p>
-                	<span ng-repeat="d in item.directors">
+                    <span ng-repeat="d in item.directors">
                 	  {{d.name+($last?'':'、')}}
             		    <!-- {{d.name}}{{$last?'':'、'}} -->
                 		<!-- <span ng-if="!$last">、</span> -->
-                	</span>
+                    </span>
                 </p>
                 <p>
-                	<span >
+                    <span>
                 		{{item.genres.join('、')}}
                 	</span>
                 </p>
             </div>
         </div>
     </a>
+</div>
+<div ng-show="total != 0">
+    <p>共{{total}}条记录,第{{page}}/{{pages}}页</p>
+    <nav>
+        <ul class="pager">
+            <li ng-class="{disabled:page<=1}"><a ng-click="go(page-1)">&lt&lt Previous</a></li>
+            <li ng-class="{disabled:page>=pages}"><a ng-click="go(page+1)">Next >></a></li>
+        </ul>
+    </nav>
+</div>
+<div class="mask" ng-show="total == 0">
+    <div class="sk-folding-cube">
+        <div class="sk-cube1 sk-cube"></div>
+        <div class="sk-cube2 sk-cube"></div>
+        <div class="sk-cube4 sk-cube"></div>
+        <div class="sk-cube3 sk-cube"></div>
+    </div>
 </div>
