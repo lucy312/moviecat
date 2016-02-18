@@ -1,0 +1,28 @@
+<h1 class="page-header">{{title}}</h1>
+<h2 ng-if="message">{{message}}</h2>
+<div class="list-group">
+
+    <a href="#" class="list-group-item" ng-repeat="item in subjects">
+    		 <span class="badge">{{item.rating.average}}</span>
+        <div class="media">
+            <div class="media-left">
+                    <img class="media-object" ng-src="{{item.images.small}}" alt="{{item.title}}">
+            </div>
+            <div class="media-body">
+                <h2 class="media-heading">{{item.title}}</h2>
+                <p>
+                	<span ng-repeat="d in item.directors">
+                	  {{d.name+($last?'':'、')}}
+            		    <!-- {{d.name}}{{$last?'':'、'}} -->
+                		<!-- <span ng-if="!$last">、</span> -->
+                	</span>
+                </p>
+                <p>
+                	<span >
+                		{{item.genres.join('、')}}
+                	</span>
+                </p>
+            </div>
+        </div>
+    </a>
+</div>
