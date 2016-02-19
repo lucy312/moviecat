@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN" ng-app="myApp" ng-controller="AppController">
+<html lang="zh-CN" ng-app="myApp">
 
 <head>
     <meta charset="utf-8">
@@ -36,9 +36,13 @@
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
-                    <li ng-class="{active:type=='in_theaters'}"><a href="#/in_theaters/1">正在热映</a></li>
+                    <li auto-focus><a href="#/in_theaters/1">正在热映</a></li>
+                    <li auto-focus><a href="#/coming_soon/1">即将上映</a></li>
+                    <li auto-focus><a href="#/top250/1">Top250</a></li>
+                    <!-- 以下是绑定数据的方法实现的 -->
+                    <!-- <li ng-class="{active:type=='in_theaters'}"><a href="#/in_theaters/1">正在热映</a></li>
                     <li ng-class="{active:type=='coming_soon'}"><a href="#/coming_soon/1">即将上映</a></li>
-                    <li ng-class="{active:type=='top250'}"><a href="#/top250/1">Top250</a></li>
+                    <li ng-class="{active:type=='top250'}"><a href="#/top250/1">Top250</a></li> -->
                 </ul>
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-view>
@@ -49,6 +53,7 @@
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="app.js"></script>
     <script src="components/jsonp.js"></script>
+    <script src="components/auto_focus.js"></script>
     <script src="movie_list/view.js"></script>
 </body>
 
