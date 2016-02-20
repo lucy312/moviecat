@@ -252,44 +252,45 @@
 //中的callback函数都是挂载在angular上的，如angular.callback,而豆瓣不支持这种格式，所以需要自己写一个
 //jsonp的服务，考虑到模块化，后面还会用到，所以单独提取到组件中去，jsonp,js文件中
 (function(angular) {
-    'use strict';
-    // 创建正在热映模块
-    var module = angular.module('myApp.moviecat', ['ngRoute', 'myApp.service.jsonp'])
-        // 配置模块路由
-    module.config(['$routeProvider', function($routeProvider) {
-        $routeProvider.when('/:category/:page', {
-            templateUrl: 'movie_list/view.html',
-            controller: 'MoviecatController'
-        });
-    }]);
-    //配置模块控制器
-    module.controller('MoviecatController', [
-        '$scope',
-        '$route',
-        '$routeParams',
-        'HttpService',
-        function($scope, $route, $routeParams, HttpService) {
-            var count = 10;
-            var page = parseInt($routeParams.page);
-            var start = (page - 1) * count;
-            $scope.total = 0;
-            $scope.page = page;
-            $scope.pages = 0;
-            $scope.title = 'Loading...';
-            $scope.message = '';
-            $scope.subjects = [];
-            HttpService.jsonp('http://api.douban.com/v2/movie/'+$routeParams.category, { start: start, count: count }, function(data) {
-                $scope.subjects = data.subjects;
-                $scope.title = data.title;
-                $scope.total = data.total;
-                $scope.pages = Math.ceil(data.total / count);
-                $scope.$apply(); //重新同步绑定数据
-            })
-            $scope.go = function(page) {
-                if (page >= 1 && page <= $scope.pages) {
-                    $route.updateParams({ page: page });
-                }
-            }
-        }
-    ]);
+	'use strict';
+	// 创建正在热映模块
+	var module = angular.module('myApp.moviecat', ['ngRoute', 'myApp.service.jsonp'])
+		// 配置模块路由
+	module.config(['$routeProvider', function($routeProvider) {
+		$routeProvider.when('/:category/:page?', {
+			templateUrl: 'movie_list/view.html',
+			controller: 'MoviecatController'
+		});
+	}]);
+	//配置模块控制器
+	module.controller('MoviecatController', [
+		'$scope',
+		'$route',
+		'$routeParams',
+		'HttpService',
+		function($scope, $route, $routeParams, HttpService) {
+			var count = 10;
+			var page = parseInt($routeParams.page);
+			var start = (page - 1) * count;
+			$scope.total = 0;
+			$scope.page = page;
+			$scope.pages = 0;
+			$scope.title = 'Loading...';
+			$scope.message = '';
+			$scope.subjects = [];
+			//$routeParams的数据来源：1。路由匹配出来的如：page 2.url中？后面匹配出来的
+			HttpService.jsonp('http://api.douban.com/v2/movie/'+$routeParams.category, { start: start, count: count , q:$routeParams.q}, function(data) {
+				$scope.subjects = data.subjects;
+				$scope.title = data.title;
+				$scope.total = data.total;
+				$scope.pages = Math.ceil(data.total / count);
+				$scope.$apply(); //重新同步绑定数据
+			})
+			$scope.go = function(page) {
+				if (page >= 1 && page <= $scope.pages) {
+					$route.updateParams({ page: page });
+				}
+			}
+		}
+	]);
 })(angular);

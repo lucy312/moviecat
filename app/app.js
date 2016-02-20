@@ -10,6 +10,13 @@
     config(['$routeProvider', function($routeProvider) {
         $routeProvider.otherwise({ redirectTo: '/in_theaters/1' });
     }])
+    .controller('SearchController',['$scope','$route',function($scope,$route){
+    	$scope.input='';
+    	$scope.search=function(){
+    		$route.updateParams({category:'search',q:$scope.input});
+    		$scope.input='';
+    	}
+    }]);
     // 用自定义angular属性指令的方法去实现以下功能，所以此段代码注释
     // .controller('AppController',['$scope','$location',function($scope,$location){
     // 	$scope.location=$location;
