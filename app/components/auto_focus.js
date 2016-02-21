@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2016-02-19 22:04:26
  * @Last Modified by:   Administrator
- * @Last Modified time: 2016-02-21 01:06:24
+ * @Last Modified time: 2016-02-21 09:42:39
  */
 
 (function(angular) {
@@ -19,7 +19,6 @@
                         var aLink = iElm.children().attr('href');
                         var type = aLink.replace(/#(\/.+?)\/\d+/, '$1'); // /coming_soon
                         if (now.startsWith(type)) {
-                        	console.log(type);
                             // 访问的是当前链接
                             iElm.parent().children().removeClass('active');
                             iElm.addClass('active');
