@@ -7,8 +7,13 @@
         'myApp.list_detail',
         'myApp.moviecat',
         'myApp.directives'
-    ]).
-    config(['$routeProvider', function($routeProvider) {
+    ])
+    .constant('AppConfig',{
+    	pageCount:10,
+    	listUrl:'http://api.douban.com/v2/movie/',
+    	detailUrl:'http://api.douban.com/v2/movie/subject/'
+    })
+    .config(['$routeProvider', function($routeProvider) {
         $routeProvider.otherwise({ redirectTo: '/in_theaters/1' });
     }])
     .controller('SearchController',['$scope','$route',function($scope,$route){

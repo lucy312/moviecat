@@ -268,10 +268,12 @@
 		'$route',
 		'$routeParams',
 		'HttpService',
-		function($scope, $route, $routeParams, HttpService) {
-			var count = 10;
+		'AppConfig',
+		function($scope, $route, $routeParams, HttpService,AppConfig) {
+			var count = AppConfig.pageCount;
 			var page = parseInt($routeParams.page);
 			var start = (page - 1) * count;
+			$scope.loading=false;
 			$scope.total = 0;
 			$scope.page = page;
 			$scope.pages = 0;
@@ -279,11 +281,12 @@
 			$scope.message = '';
 			$scope.subjects = [];
 			//$routeParams的数据来源：1。路由匹配出来的如：page 2.url中？后面匹配出来的
-			HttpService.jsonp('http://api.douban.com/v2/movie/'+$routeParams.category, { start: start, count: count , q:$routeParams.q}, function(data) {
+			HttpService.jsonp(AppConfig.listUrl+$routeParams.category, { start: start, count: count , q:$routeParams.q}, function(data) {
 				$scope.subjects = data.subjects;
 				$scope.title = data.title;
 				$scope.total = data.total;
 				$scope.pages = Math.ceil(data.total / count);
+				$scope.loading=true;
 				$scope.$apply(); //重新同步绑定数据
 			})
 			$scope.go = function(page) {

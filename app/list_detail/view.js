@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2016-02-21 10:12:02
 * @Last Modified by:   Administrator
-* @Last Modified time: 2016-02-21 12:13:06
+* @Last Modified time: 2016-02-21 14:22:47
 */
 
 (function(angular) {
@@ -21,17 +21,19 @@
   	'$scope',
   	'$routeParams',
   	'HttpService',
-  	function($scope,$routeParams,HttpService){
+  	'AppConfig',
+  	function($scope,$routeParams,HttpService,AppConfig){
   		var id=$routeParams.id
   	$scope.title='Loading...';
      $scope.data={};
      $scope.loading=false;
-     HttpService.jsonp('http://api.douban.com/v2/movie/subject/'+id,{},function(data){
+     HttpService.jsonp(AppConfig.detailUrl+id,{},function(data){
      	      $scope.data=data;
      	      $scope.title=$scope.data.title;
      	      $scope.loading=true;
      	      $scope.$apply();
-     })
+     });
+
   }]);
 
 })(angular);

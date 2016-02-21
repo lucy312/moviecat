@@ -25,7 +25,7 @@
         </div>
     </a>
 </div>
-<div ng-show="total != 0">
+<div ng-show="loading==ture">
     <p>共{{total}}条记录,第{{page}}/{{pages}}页</p>
     <nav>
         <ul class="pager">
@@ -34,7 +34,7 @@
         </ul>
     </nav>
 </div>
-<div class="mask" ng-show="total == 0">
+<div class="mask" ng-show="loading==false">
     <div class="sk-folding-cube">
         <div class="sk-cube1 sk-cube"></div>
         <div class="sk-cube2 sk-cube"></div>
